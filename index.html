@@ -10,12 +10,17 @@
   <!-- Add a link to normalize.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
   <!-- Add fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Imprima&family=Libre+Franklin&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap" rel="stylesheet"> 
   <!-- All the CSS code goes inside the style tags below -->
   <style>
     body {
       background: #f5f5f5;
       font-family: 'Libre Franklin', sans-serif;
+      font-weight: normal;
+      font-style: normal; 
+      text-decoration: none;
     }
 
     header {
@@ -38,6 +43,9 @@
       width: 80%;
       margin: 0 auto;
       color: whitesmoke;
+      font-weight: normal;
+      font-style: normal; 
+      text-decoration: none;
     }
 
     /* Ensure that the h2 is left-aligned to the same margin as h1 */
@@ -46,17 +54,26 @@
       width: 80%;
       margin: 0 auto;
       color: whitesmoke;
+      font-weight: normal;
+      font-style: normal; 
+      text-decoration: none;
     }
 
     h3 {
       font-family: 'Libre Franklin', sans-serif;
-      color: #003d71
+      color: #003d71;
+      font-weight: normal;
+      font-style: normal; 
+      text-decoration: none;
     }
 
     h4 {
       font-family: 'Libre Franklin', sans-serif;
       font-size: 1em;
-      color: #003d71
+      color: #003d71;
+      font-weight: normal;
+      font-style: normal; 
+      text-decoration: none;
     }
 
     h5 {
@@ -68,6 +85,9 @@
       margin-top: 50px;
       margin-bottom: 50px;
       text-align: center;
+      font-weight: normal;
+      font-style: normal; 
+      text-decoration: none;
     }
 
     p {
@@ -129,7 +149,9 @@
       font-size: 16px;
       text-align: right;
       margin-right: 10px;
-      /* Add spacing between label and select */
+      font-weight: normal;
+      font-style: normal; 
+      text-decoration: none;
     }
 
     select {
@@ -145,7 +167,7 @@
 <body>
   <header>
     <h1>Map Gallery</h1>
-    <h2>BTAA GIN Conference, 2022</h2>
+    <h2>BTAA GIN Conference, <span id="year-text">2022</span></h2>
     <div class="dropdown">
       <label for="year">Select Map Gallery Year:</label>
       <select id="year">
@@ -169,13 +191,17 @@
   <script>
     function loadGoogleSheetData(year) {
 
+      // The undefined Google Sheet URL
       let gsheet;
 
       if (year == 2022) {
+        // Define the Google Sheet URL
         gsheet = 'https://docs.google.com/spreadsheets/d/1bOozMAKPf0nmgq2yk705u2qNV3bvHevo9S1_7YAxyTA/export?format=csv&id=1bOozMAKPf0nmgq2yk705u2qNV3bvHevo9S1_7YAxyTA&gid=1122313144';
       } else if (year == 2021) {
+        // Define the Google Sheet URL
         gsheet = 'https://docs.google.com/spreadsheets/d/1rvCekjI3xqJhp0ov5NRXptzqJj_9QqaekUY0KWXp5oI/export?format=csv&id=1rvCekjI3xqJhp0ov5NRXptzqJj_9QqaekUY0KWXp5oI&gid=443168613';
       } else if (year == 2020) {
+        // Define the Google Sheet URL
         gsheet = 'https://docs.google.com/spreadsheets/d/1pgUQ8ro99zt-xoNDRTA5pLhowZj-uqJRFx0dFpvtRQM/export?format=csv&id=1pgUQ8ro99zt-xoNDRTA5pLhowZj-uqJRFx0dFpvtRQM';
       };
 
@@ -242,7 +268,14 @@
     // Add an event listener to the <select> element for future changes
     let selectElement = document.getElementById("year");
     selectElement.addEventListener("change", function () {
-      loadGoogleSheetData(parseInt(selectElement.value));
+      // Get the selected year value
+      const selectedYear = parseInt($(this).val());
+
+      // Update the year-text span's text content
+      $('#year-text').text(selectedYear);
+
+      // Call the function to load data for the selected year
+      loadGoogleSheetData(selectedYear);
     });
   </script>
 
