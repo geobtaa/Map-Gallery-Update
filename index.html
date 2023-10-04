@@ -27,7 +27,7 @@
       width: 100%;
       min-width: 800px;
       margin: 0 auto;
-      background: steelblue;
+      background: #184c7c;
       padding: 15px 0 20px;
       display: flex;
       justify-content: space-between;
@@ -38,9 +38,17 @@
       /* Allow items to wrap to the next line if needed */
     }
 
+    .header-elements {
+      width: 80%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between; /* Distribute elements horizontally */
+      align-items: center; /* Vertically center content */
+    }
+
     h1 {
       font-family: 'Libre Franklin', sans-serif;
-      width: 80%;
+      /*width: 80%;*/
       margin: 0 auto;
       color: whitesmoke;
       font-weight: normal;
@@ -51,7 +59,7 @@
     /* Ensure that the h2 is left-aligned to the same margin as h1 */
     h2 {
       font-family: 'Libre Franklin', sans-serif;
-      width: 80%;
+      /*width: 80%;*/
       margin: 0 auto;
       color: whitesmoke;
       font-weight: normal;
@@ -61,7 +69,7 @@
 
     h3 {
       font-family: 'Libre Franklin', sans-serif;
-      color: #003d71;
+      color: #375671;
       font-weight: normal;
       font-style: normal; 
       text-decoration: none;
@@ -70,7 +78,7 @@
     h4 {
       font-family: 'Libre Franklin', sans-serif;
       font-size: 1em;
-      color: #003d71;
+      color: #375671;
       font-weight: normal;
       font-style: normal; 
       text-decoration: none;
@@ -136,7 +144,7 @@
 
     /* Adjust the dropdown styles */
     .dropdown {
-      width: 80%;
+      /*width: 80%;*/
       margin: 0 auto;
       margin-top: 10px;
     }
@@ -161,23 +169,61 @@
       margin-right: 0px;
     }
 
+    .gin-span {
+      padding: 16px 12px;
+      text-decoration: none;
+      font-family: 'Libre Franklin', sans-serif;
+      color: whitesmoke;
+      font-size: 15px;
+      font-weight: normal;
+      font-style: normal; 
+      text-decoration: none;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      margin-right: 12px;
+    }
+
+    header .logo img {
+      height: 60px; /* Adjust the height as needed */
+      max-width: 100%; /* Make sure the image doesn't exceed its container */
+    }
+
+    .gin-link {
+      text-decoration: none; /* Remove underline */
+    }
+
   </style>
 </head>
 
 <body>
   <header>
-    <h1>Map Gallery</h1>
-    <h2>BTAA GIN Conference, <span id="year-text">2022</span></h2>
-    <div class="dropdown">
-      <label for="year">Select Map Gallery Year:</label>
-      <select id="year">
-        <!-- Make the default value 2022 -->
-        <option value="2022" selected>2022</option>
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
-      </select>
+    <div class="header-elements">
+      <div id="title">
+        <h1>Map Gallery</h1>
+        <h2>BTAA GIN Conference, <span id="year-text">2022</span></h2>
+        <div class="dropdown">
+          <label for="year">Select Map Gallery Year:</label>
+          <select id="year">
+            <!-- Make the default value 2022 -->
+            <option value="2022" selected>2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+          </select>
+        </div>
+      </div>
+      <div class="logo">
+        <a class="gin-link" href="https://sites.google.com/umn.edu/btaa-gdp/home" aria-hidden="false" tabindex="0">
+          <div class="logo">
+            <img src="logo/btaa-logo-white.png" role="img" />
+            <span class="gin-span">BTAA-GIN</span>
+          </div>
+        </a>
+      </div>
     </div>
-  </header>
+  </header>  
   <h5>Interactive Maps</h5>
   <div id="interactive"></div>
   <h5>Static Maps</h5>
