@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <!-- Give the page a title -->
+  <title>BTAA Map Gallery Test</title>
+
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <!-- Add a link to normalize.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <!-- Add fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Imprima&family=Libre+Franklin&display=swap" rel="stylesheet">
+  <!-- All the CSS code goes inside the style tags below -->
+  <style>
+    body {
+      background: #f5f5f5;
+      font-family: 'Libre Franklin', sans-serif;
+    }
+
+    header {
+      width: 100%;
+      min-width: 800px;
+      margin: 0 auto;
+      background: steelblue;
+      padding: 15px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      /* Push h1 and h2 to the left and right edges */
+      align-items: center;
+      /* Vertically center content */
+      flex-wrap: wrap;
+      /* Allow items to wrap to the next line if needed */
+    }
+
+    h1 {
+      font-family: 'Libre Franklin', sans-serif;
+      width: 80%;
+      margin: 0 auto;
+      color: whitesmoke;
+    }
+
+    /* Ensure that the h2 is left-aligned to the same margin as h1 */
+    h2 {
+      font-family: 'Libre Franklin', sans-serif;
+      width: 80%;
+      margin: 0 auto;
+      color: whitesmoke;
+    }
+
+    h3 {
+      font-family: 'Libre Franklin', sans-serif;
+      color: #003d71
+    }
+
+    h4 {
+      font-family: 'Libre Franklin', sans-serif;
+      font-size: 1em;
+      color: #003d71
+    }
+
+    h5 {
+      font-family: 'Libre Franklin', sans-serif;
+      font-size: 1.5em;
+      color: #375671;
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    p {
+      font-size: .9em;
+      color: #375671;
+      /* ensure this is left-aligned to the right of the project-image */
+      margin-left: 412px;
+    }
+
+    li {
+      list-style-type: none;
+      font-size: .9em;
+      color: #375671;
+      line-height: 1.6em;
+      /* ensure this is left-aligned to the right of the project-image */
+      margin-left: 412px;
+    }
+
+    a,
+    a:visited {
+      color: #003d71;
+    }
+
+    .project {
+      width: 80%;
+      min-width: 800px;
+      height: 100%;
+      margin: 35px auto;
+    }
+
+    .project:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .project-image {
+      width: 388px;
+      height: 240px;
+      background: white;
+      float: left;
+      margin-right: 20px;
+      border: 2px solid #dddddd;
+      object-fit: cover;
+    }
+
+    /* Adjust the dropdown styles */
+    .dropdown {
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+
+    label {
+      margin: 0;
+      padding: 0;
+      font-family: 'Libre Franklin', sans-serif;
+      color: whitesmoke;
+      font-size: 16px;
+      text-align: right;
+      margin-right: 10px;
+      /* Add spacing between label and select */
+    }
+
+    select {
+      width: 70px;
+      padding: 2px;
+      height: auto;
+      margin-right: 0px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Map Gallery</h1>
+    <h2>BTAA GIN Conference, 2022</h2>
+    <div class="dropdown">
+      <label for="year">Select Map Gallery Year:</label>
+      <select id="year">
+        <!-- Make the default value 2022 -->
+        <option value="2022" selected>2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+      </select>
+    </div>
+  </header>
+  <h5>Interactive Maps</h5>
+  <div id="interactive"></div>
+  <h5>Static Maps</h5>
+  <div id="static"></div>
+  <!-- Papaparse for bringing in Google spreadsheet data -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js "></script>
+  <!-- Add a link to the jQuery JavaScript library so you can leverage ajax methods to load your data -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Custom JavaScript below -->
+
+  <script>
+    function loadGoogleSheetData(year) {
+
+      let gsheet;
+
+      if (year == 2022) {
+        gsheet = 'https://docs.google.com/spreadsheets/d/1bOozMAKPf0nmgq2yk705u2qNV3bvHevo9S1_7YAxyTA/export?format=csv&id=1bOozMAKPf0nmgq2yk705u2qNV3bvHevo9S1_7YAxyTA&gid=1122313144';
+      } else if (year == 2021) {
+        gsheet = 'https://docs.google.com/spreadsheets/d/1rvCekjI3xqJhp0ov5NRXptzqJj_9QqaekUY0KWXp5oI/export?format=csv&id=1rvCekjI3xqJhp0ov5NRXptzqJj_9QqaekUY0KWXp5oI&gid=443168613';
+      } else if (year == 2020) {
+        gsheet = 'https://docs.google.com/spreadsheets/d/1pgUQ8ro99zt-xoNDRTA5pLhowZj-uqJRFx0dFpvtRQM/export?format=csv&id=1pgUQ8ro99zt-xoNDRTA5pLhowZj-uqJRFx0dFpvtRQM';
+      };
+
+      // Clear the interactive and static divs
+      $('#interactive').empty();
+      $('#static').empty();
+
+      Papa.parse(gsheet, {
+        download: true,
+        header: true,
+        complete: function (results) {
+          // Define data
+          let data = results.data;
+
+          // Flag to track if "Static Maps" has been added
+          let staticMapsAdded = false;
+
+          // Loop through data
+          for (let i = 0; i < data.length; i++) {
+            // Define variables
+            let project = data[i];
+            let projectImage = project.image;
+            let projectTitle = project.title;
+            let projectAuthor = project.name;
+            let otherAuthors = project.other_authors;
+
+            // if there are other authors, add them to the author string
+            if (otherAuthors) {
+              projectAuthor = projectAuthor + ', ' + otherAuthors;
+            };
+            let projectDescription = project.abstract;
+            let projectLink = project.link;
+
+            // If the project is an interactive map, add it to the page
+            if (project.kind.includes('Interactive Map')) {
+              // Create HTML elements
+              let projectHTML = '<section class="project"><a target="_blank" href="' + projectLink + '"><img src="' + projectImage + '" alt="' + projectTitle + '" class="project-image" /></a><h3>' + projectTitle + '</h3><h4>' + projectAuthor + '</h4><p>' + projectDescription + '</p><li>See the map: <a target="_blank" href="' + projectLink + '">' + projectTitle + '</a></li></section>';
+              // Append HTML elements to interactive div
+              $('#interactive').append(projectHTML);
+              //$('body').append(projectHTML);
+            };
+
+            // If the project is a static map, add it to the page
+            if (project.kind.includes('Static')) {
+              // Create HTML elements
+              let projectHTML = '<section class="project"><a target="_blank" href="' + projectLink + '"><img src="' + projectImage + '" alt="' + projectTitle + '" class="project-image" /></a><h3>' + projectTitle + '</h3><h4>' + projectAuthor + '</h4><p>' + projectDescription + '</p><li>See the map: <a target="_blank" href="' + projectLink + '">' + projectTitle + '</a></li></section>';
+              // Append HTML elements to static div
+              $('#static').append(projectHTML);
+            };
+
+          };
+
+        }
+      });
+    };
+
+    // Call the function to load data for the year 2022 when the page loads
+    $(document).ready(function () {
+      // Set the default year to 2022 in the dropdown
+      $('#year').val(2022);
+      loadGoogleSheetData(2022);
+    });
+
+    // Add an event listener to the <select> element for future changes
+    let selectElement = document.getElementById("year");
+    selectElement.addEventListener("change", function () {
+      loadGoogleSheetData(parseInt(selectElement.value));
+    });
+  </script>
+
+</body>
