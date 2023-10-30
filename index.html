@@ -212,12 +212,13 @@
     <div class="header-elements">
       <div id="title">
         <h1>Map Gallery</h1>
-        <h2>BTAA GIN Conference, <span id="year-text">2022</span></h2>
+        <h2>BTAA GIN Conference, <span id="year-text">2023</span></h2>
         <div class="dropdown">
           <label for="year">Select Map Gallery Year:</label>
           <select id="year">
-            <!-- Make the default value 2022 -->
-            <option value="2022" selected>2022</option>
+            <!-- Make the default value the most recent year -->
+            <option value="2023" selected>2023</option>
+            <option value="2022">2022</option>
             <option value="2021">2021</option>
             <option value="2020">2020</option>
           </select>
@@ -252,7 +253,10 @@
       // The undefined Google Sheet URL
       let gsheet;
 
-      if (year == 2022) {
+      if (year == 2023) {
+        // Define the Google Sheet URL
+        gsheet = 'https://docs.google.com/spreadsheets/d/11ZhYLgbkF63YaD8cR4LcBoFzbo21PzrtBZo0DvmH2rI/export?format=csv&id=11ZhYLgbkF63YaD8cR4LcBoFzbo21PzrtBZo0DvmH2rI&gid=2060485035';
+      } else if (year == 2022) {
         // Define the Google Sheet URL
         gsheet = 'https://docs.google.com/spreadsheets/d/1bOozMAKPf0nmgq2yk705u2qNV3bvHevo9S1_7YAxyTA/export?format=csv&id=1bOozMAKPf0nmgq2yk705u2qNV3bvHevo9S1_7YAxyTA&gid=1122313144';
       } else if (year == 2021) {
@@ -273,6 +277,7 @@
         complete: function (results) {
           // Define data
           let data = results.data;
+          console.log(data);
 
           // Flag to track if "Static Maps" has been added
           let staticMapsAdded = false;
@@ -283,7 +288,7 @@
             let project = data[i];
             let projectImage = project.image;
             let projectTitle = project.title;
-            let projectAuthor = project.name;
+            let projectAuthor = project.name + ', ' + project.affiliation + ', ' + project.institution;
             let otherAuthors = project.other_authors;
 
             // if there are other authors, add them to the author string
@@ -315,11 +320,11 @@
       });
     };
 
-    // Call the function to load data for the year 2022 when the page loads
+    // Call the function to load data for the most recent year when the page loads
     $(document).ready(function () {
-      // Set the default year to 2022 in the dropdown
-      $('#year').val(2022);
-      loadGoogleSheetData(2022);
+      // Set the default year to the most recent year in the dropdown
+      $('#year').val(2023);
+      loadGoogleSheetData(2023);
     });
 
     // Add an event listener to the <select> element for future changes
