@@ -212,12 +212,13 @@
     <div class="header-elements">
       <div id="title">
         <h1>Map Gallery</h1>
-        <h2>BTAA GIN Conference, <span id="year-text">2023</span></h2>
+        <h2>BTAA GIN Conference, <span id="year-text">2025</span></h2>
         <div class="dropdown">
           <label for="year">Select Map Gallery Year:</label>
           <select id="year">
             <!-- Make the default value the most recent year -->
-            <option value="2023" selected>2023</option>
+            <option value="2025" selected>2025</option>
+            <option value="2023">2023</option>
             <option value="2022">2022</option>
             <option value="2021">2021</option>
             <option value="2020">2020</option>
@@ -253,7 +254,11 @@
       // The undefined Google Sheet URL
       let gsheet;
 
-      if (year == 2023) {
+      // Define the Google Sheet URL based on the selected year
+      if (year == 2025) {
+        // Define the Google Sheet URL
+        gsheet = 'https://docs.google.com/spreadsheets/d/1FWBg8F9e7z5SSNHAIsg7nHZb8ktSlGspENpZjQxYtF8/export?format=csv&id=1FWBg8F9e7z5SSNHAIsg7nHZb8ktSlGspENpZjQxYtF8&gid=1359273639';
+      } else if (year == 2023) {
         // Define the Google Sheet URL
         gsheet = 'https://docs.google.com/spreadsheets/d/11ZhYLgbkF63YaD8cR4LcBoFzbo21PzrtBZo0DvmH2rI/export?format=csv&id=11ZhYLgbkF63YaD8cR4LcBoFzbo21PzrtBZo0DvmH2rI&gid=2060485035';
       } else if (year == 2022) {
@@ -322,8 +327,8 @@
     // Call the function to load data for the most recent year when the page loads
     $(document).ready(function () {
       // Set the default year to the most recent year in the dropdown
-      $('#year').val(2023);
-      loadGoogleSheetData(2023);
+      $('#year').val(2025);
+      loadGoogleSheetData(2025);
     });
 
     // Add an event listener to the <select> element for future changes
